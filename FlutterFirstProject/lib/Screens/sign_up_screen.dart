@@ -1,12 +1,14 @@
-import 'package:firstproject/Screens/sign_up_screen.dart';
+import 'package:firstproject/Screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
+
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscureText = true;
 
   @override
@@ -24,7 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
             width: screenWidth,
           ),
 
-          // --- Yellow Header ---
           Positioned(
             top: 0,
             left: 0,
@@ -41,9 +42,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               child: Center(
                 child: Text(
-                  "Log In",
+                  "New Account",
                   style: TextStyle(
-                    fontSize: screenWidth * 0.09,
+                    fontSize: screenWidth * 0.08,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -57,7 +58,12 @@ class _LoginScreenState extends State<LoginScreen> {
             top: screenHeight * 0.07,
             left: screenWidth * 0.05,
             child: GestureDetector(
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+              },
               child: Icon(
                 Icons.arrow_back_ios_new,
                 size: screenWidth * 0.06,
@@ -71,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
             top: screenHeight * 0.15,
             left: 0,
             right: 0,
-            bottom: screenHeight * 0, // Bottom Bar space updated
+            bottom: screenHeight * 0.05,
             child: Container(
               width: screenWidth,
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
@@ -84,58 +90,54 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               child: SingleChildScrollView(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min, // 👈 Important Fix
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: screenHeight * 0.04),
-
-                    // Welcome Text
-                    Text(
-                      "Welcome",
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.06,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: screenHeight * 0.01),
-                    Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.04,
-                        color: Colors.black54,
-                      ),
-                    ),
                     SizedBox(height: screenHeight * 0.03),
 
-                    // Email Field
-                    _buildTextField(
-                      "Email or Mobile Number",
-                      "example@example.com",
-                      false,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildTextField("Full Name", "John Doe", false),
+                        SizedBox(height: screenHeight * 0.01),
+                        _buildTextField("Email", "example@example.com", false),
+                        SizedBox(height: screenHeight * 0.01),
+                        _buildTextField("Password", "********", true),
+                        SizedBox(height: screenHeight * 0.01),
+                        _buildTextField(
+                          "Mobile Number",
+                          "+92 300 1234567",
+                          false,
+                        ),
+                        SizedBox(height: screenHeight * 0.01),
+                        _buildTextField(
+                          "Date of Birth",
+                          "DD / MM / YYYY",
+                          false,
+                        ),
+                      ],
                     ),
+                    SizedBox(height: screenHeight * 0.01),
 
-                    SizedBox(height: screenHeight * 0.02),
-
-                    // Password Field with Custom Icon
-                    _buildTextField("Password", "********", true),
-
-                    // Forgot Password
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.10,
+                      ), // 👈 10% Padding from both sides
+                      child: Center(
                         child: Text(
-                          "Forgot Password?",
+                          "By continuing, you agree to Terms of Use and Privacy Policy.",
+                          textAlign: TextAlign.center, // 👈 Centered Text
                           style: TextStyle(
-                            color: Color(0xFFE95322),
-                            fontWeight: FontWeight.bold,
+                            fontSize: screenWidth * 0.04,
+                            color: Color(0xFF252525),
                           ),
                         ),
                       ),
                     ),
 
-                    SizedBox(height: screenHeight * 0.035),
+                    SizedBox(height: screenHeight * 0.02),
 
-                    // Login Button
+                    // Sign Up Button
                     Center(
                       child: ElevatedButton(
                         onPressed: () {},
@@ -154,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         child: Text(
-                          "Log In",
+                          "Sign Up",
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -164,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
 
-                    SizedBox(height: screenHeight * 0.03),
+                    SizedBox(height: screenHeight * 0.02),
 
                     // Social Login
                     Center(
@@ -174,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
 
-                    SizedBox(height: screenHeight * 0.01),
+                    SizedBox(height: screenHeight * 0.005),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -184,15 +186,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         _socialButton("assets/icons/Fingerprint_Icon.png"),
                       ],
                     ),
-
-                    SizedBox(height: screenHeight * 0.01),
+                    SizedBox(height: screenHeight * 0.005),
 
                     // Sign Up Option
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don't have an account?",
+                          "Already have an account?",
                           style: TextStyle(fontSize: screenWidth * 0.04),
                         ),
                         TextButton(
@@ -200,12 +201,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SignUpScreen(),
+                                builder: (context) => LoginScreen(),
                               ),
                             );
                           },
                           child: Text(
-                            "Sign up",
+                            "log in",
                             style: TextStyle(
                               color: Color(0xFFE95322),
                               fontWeight: FontWeight.bold,
@@ -222,7 +223,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
 
-          // --- Bottom Navigation Bar ---
           Positioned(
             bottom: 0,
             left: 0,
