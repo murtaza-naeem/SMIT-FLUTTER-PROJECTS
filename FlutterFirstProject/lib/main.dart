@@ -1,4 +1,4 @@
-import 'package:firstproject/Screens/first_screen.dart';
+import 'package:firstproject/Screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'LeagueSpartan', // Apply Font globally
       ),
-      home: FirstScreen(),
+      home: SplashScreen(),
     );
   }
 }

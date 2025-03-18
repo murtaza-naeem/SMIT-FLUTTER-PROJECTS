@@ -14,8 +14,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   // Hardcoded Credentials
-  final String correctEmail = "murtaza@gmail.com";
-  final String correctPassword = "123456";
+  final String correctEmail = "m";
+  final String correctPassword = "1";
 
   void _login() {
     if (_emailController.text == correctEmail &&
